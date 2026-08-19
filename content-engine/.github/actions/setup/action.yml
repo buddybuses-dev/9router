@@ -1,0 +1,14 @@
+name: Set up content engine
+description: Checks out the repo, installs Node and dependencies. Shared by every pipeline workflow.
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+
+    - name: Install dependencies
+      shell: bash
+      working-directory: content-engine
+      run: npm install --no-audit --no-fund

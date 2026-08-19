@@ -1,0 +1,16 @@
+node_modules/
+.env
+.env.local
+*.log
+
+# Rendered media is large and reproducible; only the queue metadata is tracked.
+media/inbox/*
+media/broll/*
+media/music/*
+media/out/*
+!media/*/.gitkeep
+
+# Local editor and OS noise
+.DS_Store
+Thumbs.db
+.vscode/

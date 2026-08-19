@@ -1,0 +1,45 @@
+{
+  "$comment": "Channel identity. Everything the scriptwriter and publisher need to stay on-brand lives here, so tone changes are a config edit, not a code edit.",
+  "channel": {
+    "name": "CHANGE ME",
+    "handle": "@changeme",
+    "language": "en",
+    "niche": "Whop creator-economy products: trading, e-commerce, AI tooling and online income communities",
+    "audience": "18-34, English-speaking, already curious about online income, sceptical of hype and allergic to obvious ads",
+    "promise": "One honest, specific reason a product is worth a look — in under 40 seconds"
+  },
+  "voice": {
+    "persona": "A peer who actually tried the thing. Direct, concrete, mildly funny. Never a hype man.",
+    "do": [
+      "Open on a concrete detail or a number, never on 'In this video'",
+      "Name the specific person the product is not for",
+      "Use plain words a 15-year-old would say out loud",
+      "Keep one idea per video"
+    ],
+    "dont": [
+      "No 'guys', 'insane', 'crazy', 'literally changed my life', 'you won't believe'",
+      "No income claims, guaranteed returns, or earnings figures presented as typical",
+      "No fake scarcity, countdowns, or invented testimonials",
+      "No medical, legal, or financial advice framed as instruction"
+    ]
+  },
+  "cadence": {
+    "$comment": "The pipeline never publishes more than this, whatever the queue holds. Rate limiting is a channel-health decision, not an API concern.",
+    "postsPerDay": 2,
+    "minMinutesBetweenPosts": 240,
+    "publishWindowsUtc": ["13:00", "19:00"],
+    "maxQueueDepth": 40
+  },
+  "compliance": {
+    "$comment": "Affiliate disclosure is a legal requirement on all three platforms and is appended to every caption automatically.",
+    "affiliateDisclosure": "#ad — affiliate link. I earn a commission if you join.",
+    "requireDisclosureWhenAffiliate": true,
+    "bannedClaimPatterns": [
+      "guaranteed",
+      "risk[- ]free",
+      "passive income guaranteed",
+      "get rich",
+      "\\d+x your money"
+    ]
+  }
+}

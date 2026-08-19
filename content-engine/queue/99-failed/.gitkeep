@@ -1,0 +1,2 @@
+# Needs a human decision. Each item carries error.stage, error.reason and error.message.
+# See .claude/skills/pipeline-triage/SKILL.md

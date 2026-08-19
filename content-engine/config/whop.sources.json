@@ -1,0 +1,27 @@
+{
+  "$comment": "What the sourcing stage is allowed to pull. Start narrow: a handful of categories you can speak to honestly beats a firehose you cannot vet.",
+  "discovery": {
+    "categories": ["trading", "ecommerce", "ai", "social-media", "personal-finance"],
+    "minReviewCount": 10,
+    "minRating": 4.0,
+    "maxPriceUsd": 200,
+    "maxNewItemsPerRun": 6
+  },
+  "manualProducts": [
+    {
+      "$comment": "Products you have vetted yourself. These are always eligible and skip the discovery filters.",
+      "id": "example-product",
+      "name": "Example Whop Community",
+      "url": "https://whop.com/example",
+      "affiliateUrl": "",
+      "priceLabel": "$29/mo",
+      "angleNotes": "Replace this entry — it exists so the pipeline has something to run against on day one.",
+      "enabled": false
+    }
+  ],
+  "exclude": {
+    "$comment": "Never source these. Categories where an honest 40-second review is not possible, or where platform ad policy is hostile.",
+    "keywords": ["signals", "forex signals", "crypto pump", "betting", "casino", "sports picks"],
+    "productIds": []
+  }
+}

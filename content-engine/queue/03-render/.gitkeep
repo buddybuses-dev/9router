@@ -1,0 +1,2 @@
+# Scripted, waiting on a video file. With RENDERER=manual, items sit here until you
+# drop the export into media/inbox/<item-id>.mp4 — that is normal, not an error.

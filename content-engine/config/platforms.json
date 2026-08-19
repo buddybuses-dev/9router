@@ -1,0 +1,39 @@
+{
+  "$comment": "Hard platform constraints. The script writer is given these as its spec, and the publisher validates against them before upload, so a violation fails locally instead of at the API.",
+  "youtube": {
+    "enabled": true,
+    "format": "shorts",
+    "aspect": "9:16",
+    "maxDurationSec": 60,
+    "minDurationSec": 15,
+    "titleMaxChars": 100,
+    "descriptionMaxChars": 4900,
+    "maxTags": 15,
+    "categoryId": "22",
+    "privacyStatus": "public",
+    "madeForKids": false,
+    "requiredHashtags": ["#Shorts"]
+  },
+  "instagram": {
+    "enabled": true,
+    "format": "reels",
+    "aspect": "9:16",
+    "maxDurationSec": 90,
+    "minDurationSec": 5,
+    "captionMaxChars": 2200,
+    "maxHashtags": 20,
+    "shareToFeed": true
+  },
+  "tiktok": {
+    "enabled": true,
+    "format": "video",
+    "aspect": "9:16",
+    "maxDurationSec": 60,
+    "minDurationSec": 5,
+    "captionMaxChars": 2200,
+    "maxHashtags": 15,
+    "privacyLevel": "PUBLIC_TO_EVERYONE",
+    "disclosureCommercialContent": true,
+    "disclosureBrandedContent": false
+  }
+}

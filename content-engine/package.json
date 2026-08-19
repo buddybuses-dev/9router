@@ -1,0 +1,24 @@
+{
+  "name": "content-engine",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "24/7 UGC content pipeline: Whop sourcing to YouTube, Instagram and TikTok",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "source": "node pipeline/1-source.js",
+    "script": "node pipeline/2-script.js",
+    "render": "node pipeline/3-render.js",
+    "publish": "node pipeline/4-publish.js",
+    "stats": "node pipeline/5-stats.js",
+    "health": "node pipeline/health.js",
+    "cycle": "npm run source && npm run script && npm run render && npm run publish",
+    "dry": "DRY_RUN=1 npm run cycle",
+    "check": "find lib pipeline publishers renderers sources -name '*.js' -exec node --check {} +"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.71.0"
+  }
+}
