@@ -28,10 +28,10 @@ function stageDir(stage) {
   return join(QUEUE, dir);
 }
 
-// Norwegian titles are the common case here, so fold the two extra vowels explicitly:
-// NFKD decomposes a-ring into a + combining mark, but leaves ae and o-slash intact.
-// Everything here is written as an escape because literal combining marks are
-// invisible in an editor and easy to mangle.
+// Norwegian titles are the common case, so fold the two extra vowels explicitly:
+// NFKD decomposes a-ring into a + a combining mark, but leaves ae and o-slash whole.
+// Written as escapes rather than literal characters — a combining-mark range pasted
+// directly into source is invisible in an editor and trivially mangled by one.
 export function slugify(text, maxLength = 48) {
   return String(text)
     .toLowerCase()
