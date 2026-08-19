@@ -28,15 +28,14 @@ function stageDir(stage) {
   return join(QUEUE, dir);
 }
 
-// Norwegian titles are the common case, so fold the two extra vowels explicitly:
-// NFKD decomposes a-ring into a + a combining mark, but leaves ae and o-slash whole.
-// Written as escapes rather than literal characters — a combining-mark range pasted
-// directly into source is invisible in an editor and trivially mangled by one.
+// NFKD splits accented letters into a base letter plus a combining mark, so stripping
+// every mark leaves plain ASCII behind. The two Norwegian vowels that NFKD does not
+// decompose at all get folded by hand.
 export function slugify(text, maxLength = 48) {
   return String(text)
     .toLowerCase()
     .normalize('NFKD')
-    .replace(/[̀-ͯ]/g, '')
+    .replace(/\p{M}/gu, '')
     .replace(/æ/g, 'ae')
     .replace(/ø/g, 'oe')
     .replace(/[^a-z0-9]+/g, '-')
