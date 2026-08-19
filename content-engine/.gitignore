@@ -10,6 +10,10 @@ media/music/*
 media/out/*
 !media/*/.gitkeep
 
+# npm needs the lockfile tracked. Stated explicitly because while this project sits
+# inside another repository, that repository's .gitignore excludes lockfiles.
+!package-lock.json
+
 # Local editor and OS noise
 .DS_Store
 Thumbs.db

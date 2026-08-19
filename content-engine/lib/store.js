@@ -29,7 +29,8 @@ function stageDir(stage) {
 }
 
 // Norwegian titles are the common case here, so fold the three extra vowels
-// explicitly — NFKD decomposes å but leaves æ and ø intact.
+// explicitly: NFKD decomposes a-ring but leaves ae and o-slash intact. The combining
+// marks are written as escapes because literal ones are invisible in an editor.
 export function slugify(text, maxLength = 48) {
   return String(text)
     .toLowerCase()
