@@ -1,0 +1,64 @@
+name: Pipeline (source → script → render)
+
+# The producing half of the pipeline. Kept separate from publishing so a scripting
+# problem never blocks a video that is already finished and waiting.
+on:
+  schedule:
+    # Every three hours. Sourcing and scripting are cheap; the cadence limits in
+    # channel.config.json are what actually control output volume.
+    - cron: '0 */3 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Run without calling any external service
+        type: boolean
+        default: false
+
+# One writer at a time. Every stage commits the queue, so overlapping runs would
+# race on the same files.
+concurrency:
+  group: content-queue
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  produce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      DRY_RUN: ${{ inputs.dry_run && '1' || '' }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      WHOP_API_KEY: ${{ secrets.WHOP_API_KEY }}
+      ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+      ELEVENLABS_VOICE_ID: ${{ secrets.ELEVENLABS_VOICE_ID }}
+      RENDERER: ${{ vars.RENDERER || 'manual' }}
+      LLM_MODEL: ${{ vars.LLM_MODEL || 'claude-opus-5' }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+
+      - name: Source new briefs
+        run: npm run source
+
+      - name: Write scripts
+        run: npm run script
+
+      - name: Render
+        run: npm run render
+
+      - name: Commit queue changes
+        run: |
+          git config user.name  "content-engine[bot]"
+          git config user.email "content-engine[bot]@users.noreply.github.com"
+          git add queue
+          if git diff --cached --quiet; then
+            echo "Queue unchanged."
+            exit 0
+          fi
+          git commit -m "chore(queue): produce cycle $(date -u +%Y-%m-%dT%H:%MZ)"
+          # Another workflow may have pushed while this one ran; rebase rather than fail.
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
